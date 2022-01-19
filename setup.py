@@ -6,5 +6,6 @@ setup(
     author='Robert Spralja',
     author_email='robert.spralja@gmail.com',
     license='MIT',
+    url='https://github.com/spralja/django-ical-models'
     packages=['django_ical_models'],
 )
