@@ -1,0 +1,2 @@
+import unittest
+import django_ical_models
