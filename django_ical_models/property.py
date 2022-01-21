@@ -19,7 +19,17 @@ _value_data_type_to_field_switch = {
 }
 
 
+def translate(string):
+    return string.upper()
+
+
 def create_property_field(value_data_type, conformance, **options):
+    if not isinstance(value_data_type, str):
+        raise TypeError('value_data_type must be str, not %s' % type(value_data_type).__qualname__)
+
+    if not isinstance(conformance, str):
+        raise TypeError('conformance must be str, not %s' % type(conformance).__qualname__)
+        
     _value_data_type = value_data_type
     value_data_type = value_data_type.upper()
 

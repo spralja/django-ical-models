@@ -2,6 +2,26 @@ import unittest
 import django_ical_models
 
 class PropertyFieldTestCase(unittest.TestCase):
+    def test_value_data_type_not_str(self):
+        value_data_type = 123
+        conformance = 'CAN BE SPECIFIED'
+        try:
+            django_ical_models.create_property_field(value_data_type, conformance)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance)
+        except TypeError as e:
+            self.assertEqual(str(e), 'value_data_type must be str, not int')
+
+    def test_conformance_not_str(self):
+        value_data_type = 'TEXT'
+        conformance = 123
+        try:
+            django_ical_models.create_property_field(value_data_type, conformance)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance)
+        except TypeError as e:
+            self.assertEqual(str(e), 'conformance must be str, not int')
+    
     def test_unsuported_value_data_type(self):
         value_data_type = 'TEST'
         conformance = 'CAN BE SPECIFIED'
