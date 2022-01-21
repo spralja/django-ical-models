@@ -1,3 +1,4 @@
+from typing import Type
 import unittest
 import django_ical_models
 
@@ -9,6 +10,7 @@ class PropertyFieldTestCase(unittest.TestCase):
             django_ical_models.create_property_field(value_data_type, conformance)
             with self.assertRaises(TypeError):
                 django_ical_models.create_property_field(value_data_type, conformance)
+
         except TypeError as e:
             self.assertEqual(str(e), 'value_data_type must be str, not int')
 
@@ -19,6 +21,7 @@ class PropertyFieldTestCase(unittest.TestCase):
             django_ical_models.create_property_field(value_data_type, conformance)
             with self.assertRaises(TypeError):
                 django_ical_models.create_property_field(value_data_type, conformance)
+
         except TypeError as e:
             self.assertEqual(str(e), 'conformance must be str, not int')
     
@@ -29,6 +32,7 @@ class PropertyFieldTestCase(unittest.TestCase):
             django_ical_models.create_property_field(value_data_type, conformance)
             with self.assertRaises(TypeError):
                 django_ical_models.create_property_field(value_data_type, conformance)
+
         except TypeError as e:
             self.assertEqual(str(e), 'value_data_type \'TEST\' not supported')
 
@@ -39,24 +43,40 @@ class PropertyFieldTestCase(unittest.TestCase):
             django_ical_models.create_property_field(value_data_type, conformance)
             with self.assertRaises(TypeError):
                 django_ical_models.create_property_field(value_data_type, conformance)
+
         except TypeError as e:
             self.assertEqual(str(e), '\'TEST\' is not a conformance')
     
     def test_MUST_BE_SPECIFIED_and_null_True(self):
         value_data_type = 'TEXT'
         conformance = 'MUST BE SPECIFIED'
-        with self.assertRaises(TypeError):
+        try:
             django_ical_models.create_property_field(value_data_type, conformance, null=True)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance, null=True)
+
+        except TypeError as e:
+            self.assertEqual(str(e), 'null must not be True with conformance \'MUST BE SPECIFIED\'')
     
     def test_CAN_BE_SPECIFIED_and_primary_key_True(self):
         value_data_type = 'TEXT'
         conformance = 'CAN BE SPECIFIED'
-        with self.assertRaises(TypeError):
+        try:
             django_ical_models.create_property_field(value_data_type, conformance, primary_key=True)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance, primary_key=True)
+
+        except TypeError as e:
+            self.assertEqual(str(e), 'primary_key must not be True with conformance \'CAN BE SPECIFIED\'')
 
     def test_CAN_BE_SPECIFIED_and_null_False(self):
         value_data_type = 'TEXT'
         conformance = 'CAN BE SPECIFIED'
-        with self.assertRaises(TypeError):
+        try:
             django_ical_models.create_property_field(value_data_type, conformance, null=False)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance, null=False)
+                
+        except TypeError as e:
+            self.assertEqual(str(e), 'null must not be False with conformance \'CAN BE SPECIFIED\'')
             
