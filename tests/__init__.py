@@ -25,14 +25,22 @@ class PropertyFieldTestCase(unittest.TestCase):
     def test_unsuported_value_data_type(self):
         value_data_type = 'TEST'
         conformance = 'CAN BE SPECIFIED'
-        with self.assertRaises(TypeError):
+        try:
             django_ical_models.create_property_field(value_data_type, conformance)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance)
+        except TypeError as e:
+            self.assertEqual(str(e), 'value_data_type \'TEST\' not supported')
 
     def test_unsuported_conformance(self):
         value_data_type = 'TEXT'
         conformance = 'TEST'
-        with self.assertRaises(TypeError):
+        try:
             django_ical_models.create_property_field(value_data_type, conformance)
+            with self.assertRaises(TypeError):
+                django_ical_models.create_property_field(value_data_type, conformance)
+        except TypeError as e:
+            self.assertEqual(str(e), '\'TEST\' is not a conformance')
     
     def test_MUST_BE_SPECIFIED_and_null_True(self):
         value_data_type = 'TEXT'
