@@ -1,5 +1,4 @@
 asgiref==3.4.1
-backports.zoneinfo==0.2.1
 Django==4.0.1
 icalendar==4.0.9
 python-dateutil==2.8.2
