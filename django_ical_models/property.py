@@ -1,21 +1,21 @@
 from django.db import models
 
 
-value_data_type_to_model = {
-    'BINARY': NotImplementedError,
+value_data_type_to_field = {
+    'BINARY': models.BinaryField,
     'BOOLEAN': models.BooleanField,
-    'CAL-ADDRESS': NotImplementedError,
+    'CAL-ADDRESS': models.TextField,
     'DATE': models.DateField,
     'DATE-TIME': models.DateTimeField,
-    'DURATION': NotImplementedError,
+    'DURATION': models.DurationField,
     'FLOAT': models.FloatField,
     'INTEGER': models.IntegerField,
-    'PERIOD': NotImplementedError,
-    'RECUR': NotImplementedError,
+    'PERIOD': models.TextField,
+    'RECUR': models.TextField,
     'TEXT': models.TextField,
     'TIME': models.TimeField,
-    'URI': NotImplementedError,
-    'UTC-OFFSET': NotImplementedError, 
+    'URI': models.TextField,
+    'UTC-OFFSET': models.DurationField, 
 }
 
 
@@ -23,10 +23,10 @@ def create_property_field(value_data_type, conformance, **options):
     if not isinstance(value_data_type, str):
         raise TypeError(f'value_data_type must be str, not {type(value_data_type).__qualname__}')
 
-    if value_data_type not in value_data_type_to_model:
+    if value_data_type not in value_data_type_to_field:
         raise TypeError(f'value_data_type \'{value_data_type}\' not supported')
     
-    field = value_data_type_to_model[value_data_type]
+    field = value_data_type_to_field[value_data_type]
 
     if not isinstance(conformance, str):
         raise TypeError(f'conformance must be str, not {type(conformance).__qualname__}')
