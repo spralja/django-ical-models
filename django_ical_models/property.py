@@ -35,16 +35,16 @@ def create_property_field(value_data_type, conformance, **options):
         case 'MUST BE SPECIFIED':
             if 'null' in options:
                 if options['null']:
-                    raise TypeError(f'null must not be True with conformance \'{conformance}\'')
+                    raise TypeError(f'null must not be True with conformance {conformance!r}')
 
         case 'CAN BE SPECIFIED':
             if 'primary_key' in options:
                 if options['primary_key']:
-                    raise TypeError(f'primary_key must not be True with conformance \'{conformance}\'')
+                    raise TypeError(f'primary_key must not be True with conformance {conformance!r}')
             
             if 'null' in options:
                 if not options['null']:
-                    raise TypeError(f'null must not be False with conformance \'{conformance}\'')
+                    raise TypeError(f'null must not be False with conformance {conformance!r}')
 
             else:
                 options['null'] = True
@@ -53,7 +53,7 @@ def create_property_field(value_data_type, conformance, **options):
             raise NotImplementedError('conformance \'CAN BE SPECIFIED MULTIPLE TIMES\' is not implemented yet')
         
         case _:
-            raise TypeError(f'\'{conformance}\' is not a conformance')
+            raise TypeError(f'{conformance!r} is not a conformance')
 
     return field(**options)
     
